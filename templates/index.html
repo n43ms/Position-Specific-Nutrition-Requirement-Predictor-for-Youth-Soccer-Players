@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soccer Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #cacaca;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: #cacaca;
+            font-size: 32px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            border-bottom: 2px solid #00509e;
+        }
+
+        .container {
+            text-align: center;
+            width: 85%;
+            max-width: 1200px;
+            margin: 40px auto;
+            color: #cacaca;
+        }
+
+        .form-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            margin-bottom: 30px;
+            transition: transform 0.6s ease, box-shadow 0.6s ease, background-color 0.3s ease;
+        }
+
+        .form-section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .form-section h2 {
+            color: #cacaca;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .form-section input, 
+        .form-section select, 
+        .form-section button {
+            display: block;
+            width: 96.7%;
+            padding: 12px 18px;
+            margin: 8px 0;
+            font-size: 16px;
+            border-radius: 8px;
+            background: #1f1f1f;
+            color: #cacaca;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: none;
+            font-family: 'Poppins', sans-serif; /* Poppins font for inputs and buttons */
+        }
+
+        .form-section input:focus, 
+        .form-section select:focus {
+            outline: none;
+            box-shadow: 0 4px 12px rgba(0, 198, 255, 0.4);
+        }
+
+        .form-section button {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: rgb(249, 249, 249);
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .form-section button:hover {
+            background: linear-gradient(135deg, #0072ff, #00c6ff);
+            transform: scale(1.05);
+        }
+
+        .form-section select {
+            transition: all 0.5s ease-in-out;
+            cursor: pointer;
+        }
+
+        .form-section select:hover, .form-section input:hover {
+            background-color: #2e2e2e;
+        }
+
+        .results {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            margin-top: 30px;
+            text-align: center;
+            display: none;
+            transition: opacity 0.3s ease;
+        }
+
+        canvas {
+            max-width: 100%;
+            margin: 40px auto;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        canvas:hover {
+            transform: scale(1.02);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: #cacaca;
+            border-top: 2px solid #00509e;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .main-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #1f1f1f;
+            color: #cacaca;
+            font-size: 14px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #00509e;
+        }
+
+        .main-menu a {
+            color: #cacaca;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .main-menu a:hover {
+            color: #00c6ff;
+        }
+
+        .recommend-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .recommend-links a {
+            color: #cacaca;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: #1f1f1f;
+            border: 1px solid #0072ff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .recommend-links a:hover {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: #fff;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        Soccer Player Nutrition Analysis
+    </header>
+    <div class="main-menu">
+        <span><a href="#recommend" id="recommend-link">Recommend Us</a></span>
+        <div>
+            <a href="#source-code">See How the Prediction is Made (Source Code)!</a>
+            <a href="#share-results" id="share-link">Share Your Results!</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="form-section">
+            <form id="playerForm" action="/analyze" method="POST">
+                <input type="text" name="playerName" id="playerName" placeholder="Enter your name" required>
+                <select name="playerPosition" id="playerPosition" required>
+                    <option value="">Select your position</option>
+                    <option value="1">Goalkeeper</option>
+                    <option value="2">Defender</option>
+                    <option value="3">Wing-back</option>
+                    <option value="4">Midfielder</option>
+                    <option value="5">Forward</option>
+                </select>
+                <input type="number" name="playerAge" id="playerAge" placeholder="Enter your age (10-18)" min="10" max="18" required>
+                <input type="number" name="playerWeight" id="playerWeight" placeholder="Enter your weight (in kg)" min="20" max="120" required>
+                <input type="number" name="playerHeight" id="playerHeight" placeholder="Enter your height (in cm)" min="70" max="220" required>
+                <button type="submit">Analyze</button>
+            </form>
+            
+            
+            
+        </div>
+
+        <div class="results" id="resultsSection">
+            <h2>Results for <span id="resultName"></span></h2>
+            <p>You require <strong id="resultCarbs"></strong> calories from carbohydrates, translating to <strong id="resultCarbsGrams"></strong> grams.</p>
+            <p>You require <strong id="resultProtein"></strong> calories from protein, translating to <strong id="resultProteinGrams"></strong> grams.</p>
+            <p>You require <strong id="resultFat"></strong> calories from fats, translating to <strong id="resultFatGrams"></strong> grams.</p>
+            <p>Total daily caloric requirement: <strong id="resultTotalCalories"></strong> calories.</p>
+        </div>
+
+        <div id="recommend" class="recommend-links">
+            <a href="#" onclick="alert('Link copied!')">Copy Link</a>
+            <a href="mailto:?subject=Check%20out%20this%20Soccer%20Analysis!">Email</a>
+            <a href="https://wa.me/?text=Check%20out%20this%20Soccer%20Analysis!" target="_blank">WhatsApp</a>
+            <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+            <a href="https://www.facebook.com/" target="_blank">Facebook</a>
+            <a href="https://twitter.com/?text=Check%20out%20this%20Soccer%20Analysis!" target="_blank">Twitter</a>
+        </div>
+
+        <canvas id="caloricChart"></canvas>
+    </div>
+    <footer>
+        &copy; 2025 Soccer Analytics. All rights reserved.
+    </footer>
+
+    <script>
+        document.getElementById("playerForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+    
+            const formData = new FormData(this);
+    
+            fetch('/analyze', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update results section
+                document.getElementById("resultName").innerText = data.name;
+                document.getElementById("resultCarbs").innerText = data.carbs;
+                document.getElementById("resultCarbsGrams").innerText = data.carbs_grams;
+                document.getElementById("resultProtein").innerText = data.protein;
+                document.getElementById("resultProteinGrams").innerText = data.protein_grams;
+                document.getElementById("resultFat").innerText = data.fat;
+                document.getElementById("resultFatGrams").innerText = data.fat_grams;
+                document.getElementById("resultTotalCalories").innerText = data.total_calories;
+    
+                document.getElementById("resultsSection").style.display = "block";
+    
+                // Update chart
+                const ctx = document.getElementById("caloricChart").getContext("2d");
+                new Chart(ctx, {
+                    type: "pie",
+                    data: {
+                        labels: ["Carbs", "Protein", "Fats"],
+                        datasets: [{
+                            data: [data.carbs, data.protein, data.fat],
+                            backgroundColor: ["#f39c12", "#2ecc71", "#e74c3c"],
+                            borderWidth: 0 // No borders
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        animation: {
+                            duration: 3000, // Slower animation
+                            easing: "easeInOutQuart"
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    
+        
+</body>
+</html>

@@ -41,7 +41,7 @@ To commit to a personal project was a prerequisite for any aspiring pupil in the
 ## 🔮 Future Enhancements
 
 - **Frontend Development:** Enable users to share their results on social media platforms and improve aesthetics of HTML Frontend (UI) 
-- **Flask SocketIO:** Implement Flask SocketIO to reduce load latency
+- **Flask SocketIO:** Implement Flask SocketIO to reduce latency
 - **Mobile Responsiveness:** Optimize the program for mobile and tablet devices.
 - **Custom Food Recommendations:** Extend the tool to suggest specific meals based on predicted nutritional requirements.  
 - **Integration with Wearables:** Utilize data from fitness trackers and smartwatches to refine predictions and personalize recommendations.  

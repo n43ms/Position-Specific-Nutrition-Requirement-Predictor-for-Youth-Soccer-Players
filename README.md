@@ -1,7 +1,7 @@
 # Position-Specific-Nutrition-Requirement-Predictor-for-Youth-Soccer-Players
 Frontend (UI) still in progress (Beta Version)
 
-A machine learning-based tool that predicts the nutritional requirements of young soccer players based on their on-field positions and physical specifications. The tool provides detailed calorie and gram macronutrient requirements from each food source to help athletes meet their dietary needs for optimal performance.
+A machine learning-based tool that predicts the nutritional requirements of young soccer players based on their on-field positions and physical specifications. The tool provides detailed calorie and gram macronutrient requirements from each food source to help athletes meet their dietary needs for optimal performance. The model has an accuracy (R2 score) of 0.924 (92.4%)
 
 ## 🚀 Key Features
 
